@@ -19,11 +19,11 @@ function _draw()
 	if(gamestate==0)then drawmenu() end
 	if(gamestate==1)then drawgame() end
 	if(gamestate==2)then drawgameover() end
-	print(user,1,99,8)
 end
 
 function _init()
-	music(0)
+	-- music(0)
+	cartdata('d8_fplane')
 end
 
 function _update()
@@ -168,8 +168,8 @@ function jump()
 end
 
 function checkdeath()
-	if (height<-4) then gamestate=2 end
-	if (height>131) then gamestate=2 end
+	if (height<-4) then die() end
+	if (height>131) then die() end
 	-- tower collision check
 	for i=1,#towers do
 		local twidth = 1
@@ -181,7 +181,7 @@ function checkdeath()
 		if (towers[i].x<=18) then
 			if (towers[i].x+twidth*8>10) then
 				if (128-towers[i].h*8<height+8) then
-					gamestate = 2
+					die()
 				end
 			end
 		end
@@ -191,25 +191,25 @@ function checkdeath()
 		if (clouds[i].t==1) then
 			if (clouds[i].x>=-5 and clouds[i].x<=26) then
 				if (height<=clouds[i].h+6 and clouds[i].h+5<=height+7) then
-					gamestate = 2
+					die()
 				end
 			end
 		elseif (clouds[i].t==2) then
 			if (clouds[i].x>=4 and clouds[i].x<=25) then
 				if (height<=clouds[i].h+6 and clouds[i].h+1<=height+7) then
-					gamestate = 2
+					die()
 				end
 			end
 		elseif (clouds[i].t==3) then
 			if (clouds[i].x>=-4 and clouds[i].x<=25) then
 				if (height<=clouds[i].h+6 and clouds[i].h+1<=height+7) then
-					gamestate = 2
+					die()
 				end
 			end
 		elseif (clouds[i].t==4) then
 			if (clouds[i].x>=-4 and clouds[i].x<=25) then
 				if (height<=clouds[i].h+14 and clouds[i].h+1<=height+7) then
-					gamestate = 2
+					die()
 				end
 			end
 		end
@@ -342,6 +342,16 @@ function updatecoins()
 	for coin in all(coins) do
 		if (coin.x<-8) then del(coins,coin) end
 	end
+end
+
+function die()
+	gamestate = 2
+	-- todo: sound effect here
+	highscorecheck()
+end
+
+function highscorecheck()
+	
 end
 
 -- helper functions
