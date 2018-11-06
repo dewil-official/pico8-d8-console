@@ -5,13 +5,15 @@ __lua__
 -- persistant variables
 
 gamestate = 0 // 0=menu,1=ingame,2=gameover
+ticks = 0
 height = 64
 acc = 0
 towers = {}
 clouds = {}
-ticks = 0
-score = 0
 coins = {}
+score = 0
+highscore = 0
+plane = 0
 
 -- main functions
 
@@ -30,7 +32,7 @@ function _update()
 	if(gamestate==1)then
 		-- main ingame updates
 		checkdeath() 
- 	jump()
+ 	controls()
  	updatetowers()
  	updateclouds()
  	updatecoins()
@@ -41,7 +43,7 @@ function _update()
  	menu()
  elseif(gamestate==2)then
  	if(btn(5)) then
- 		run()
+ 		reset()
  	end
  	ticks += 1
  end
@@ -149,6 +151,8 @@ function drawgameover()
 	else
 		print('game over!',44,61,0)
 	end
+	print('score: '..score,1,1,0)
+	print('max: '..highscore,1,7,0)
 end
 
 -- update functions
@@ -159,11 +163,18 @@ function menu()
 	end
 end
 
-function jump()
-	if (btnp(2)) then
-		sfx(0)
-		acc = -5
-		height += 2
+function controls()
+	if (plane == 0) then
+		if (btn(2)) then
+			acc = -2
+		end
+	end
+	if (plane == 1) then
+		if (btnp(2)) then
+ 		sfx(0)
+ 		acc = -5
+ 		height += 2
+		end
 	end
 end
 
@@ -351,7 +362,20 @@ function die()
 end
 
 function highscorecheck()
-	
+	if (highscore<score) then
+		highscore = score
+	end
+end
+
+function reset()
+	score = 0
+	coins = {}
+	towers = {}
+	clouds = {}
+	ticks = 0
+	gamestate = 0
+	height = 64
+	acc = 0
 end
 
 -- helper functions

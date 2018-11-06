@@ -3,5 +3,6 @@ version 16
 __lua__
 -- memory test: 😐
 cartdata('d8_users')
-dset(1,5)
-print(dget(1))
+dset(0,a)
+print(dget(0))
+
