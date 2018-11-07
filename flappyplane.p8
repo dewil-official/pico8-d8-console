@@ -13,7 +13,7 @@ clouds = {}
 coins = {}
 score = 0
 highscore = 0
-plane = 0
+plane = 1
 
 -- main functions
 
@@ -66,8 +66,23 @@ end
 
 function drawgame()
 	rectfill(0,0,127,127,1)
-	spr(0,10,height)
-	spr(1,18,height)
+	if (plane==0) then
+		-- normales flugzeug
+ 	spr(0,10,height)
+ 	spr(1,18,height)
+ elseif (plane==1) then
+ 	-- ufo
+ 	if (divby(ticks,3)) then
+  	spr(32,10,height)
+  	spr(33,18,height)
+ 	elseif (divby(ticks,5)) then
+  	spr(48,10,height)
+  	spr(49,18,height)
+ 	else
+  	spr(16,10,height)
+  	spr(17,18,height)
+  end
+ end
  -- draw coins
  for coin in all(coins) do
  	spr(25,coin.x,coin.y)
@@ -139,8 +154,8 @@ function drawgame()
  	end
  end
  -- draw score
- spr(25,116,0)
- print(score,124,2,7)
+ spr(25,1,0)
+ print(score,9,2,7)
 end
 
 function drawgameover()
@@ -172,8 +187,7 @@ function controls()
 	if (plane == 1) then
 		if (btnp(2)) then
  		sfx(0)
- 		acc = -5
- 		height += 2
+ 		acc = -3
 		end
 	end
 end
