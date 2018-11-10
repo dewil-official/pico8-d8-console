@@ -70,10 +70,10 @@ function interface()
 end
 
 function getlogo(n)
-	if (n=='flappyplane') then
+	if (n=='flappy plane') then
 		return 3
 	end
-	if (n=='dungeon_escape') then
+	if (n=='dungeon-escape') then
 		return 4
 	end
 	return 99
@@ -92,9 +92,6 @@ function divby(a,b)
 		return false
 	end
 end
-
--- escape menu functions
-
 __gfx__
 00011000077777507777750000a90000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 001c6200057557507555750050987000007600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
