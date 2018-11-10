@@ -13,7 +13,7 @@ clouds = {}
 coins = {}
 score = 0
 highscore = 0
-plane = 1
+plane = 0
 
 -- main functions
 
@@ -24,8 +24,7 @@ function _draw()
 end
 
 function _init()
-	-- music(0)
-	cartdata('d8_fplane')
+	menuitem(1,'back to menu',function() load('menu.p8') run() end)
 end
 
 function _update()
